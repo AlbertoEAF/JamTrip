@@ -1,0 +1,2 @@
+jack2-win64-v1.9.17.exe filter=lfs diff=lfs merge=lfs -text
+jacktrip.exe filter=lfs diff=lfs merge=lfs -text
