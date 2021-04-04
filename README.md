@@ -6,6 +6,8 @@ This project makes it easier to jam with your friends using JackTrip.
 
 # Installation
 
+**Requirement: Python 3 must be installed.** If you are using Windows, check "Add to PATH" when running the setup.
+
 Download the latest [JamTrip.zip](https://github.com/AlbertoEAF/JamTrip/archive/refs/heads/master.zip) and extract it to a folder of your choosing.
 
 Then, follow the [jacktrip installation instructions](https://ccrma.stanford.edu/software/jacktrip/windows/index.html) to:
