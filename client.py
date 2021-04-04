@@ -80,7 +80,7 @@ class JamTripApp:
     def setup(cls):
         if not os.path.exists("jacktrip.exe"):
             cls.txt_output.insert(tk.END, "\nERROR: jacktrip.exe not found in this folder! Download it first!")
-        cls.ent_server_ip.insert(0, cls.settings.server_ip)
+        cls.ent_server_ip.insert(0, cls.settings.server_ip or "")
         cls.btn_server_connect.bind("<Button-1>", JamTripApp.connect)
         cls.btn_server_ip_save.bind("<Button-1>", JamTripApp.save_ip)
 
