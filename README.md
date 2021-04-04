@@ -6,4 +6,4 @@ This project uses JackTrip and is made to make it easier to connect to other use
 
 Follow instructions at https://ccrma.stanford.edu/software/jacktrip/windows/index.html
 
-For convenience, those .exe are available under this repo already. Just download as zip and install them.
+Then, just install Python >= 3.6 and that's it, double click `client.py` and you're ready to go!
