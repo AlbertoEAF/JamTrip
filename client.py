@@ -1,3 +1,4 @@
+import os
 import argparse
 import tkinter as tk
 import tkinter.font
@@ -25,6 +26,27 @@ class Q(SimpleQueue):
         pass     
 
 
+class Settings:    
+    def __init__(self, filepath):       
+        self._filepath = filepath
+        self.server_ip = None
+
+        if os.path.exists(filepath):            
+            self.load(filepath)            
+
+    def load(self, filepath=None):
+        with open(filepath or self._filepath) as infile:
+            lines = infile.readlines()
+            for line in lines:
+                key, value = line.split(":")
+                setattr(self, key, value.strip())
+
+    def save(self, filepath=None):
+        with open(filepath or self._filepath, "w") as out:
+            out.write(f"server_ip: {self.server_ip}\n")
+
+
+
 class JamTripApp:
     window = tk.Tk()
     window.title("JamTrip")
@@ -32,6 +54,7 @@ class JamTripApp:
     frm_server_ip = tk.Frame()
     lbl_server_ip = tk.Label(master=frm_server_ip, text="Server IP")
     ent_server_ip = tk.Entry(master=frm_server_ip, width=15)
+    btn_server_ip_save = tk.Button(master=frm_server_ip, text="Save")
     server_mode = tk.IntVar()
     btn_server_mode_checkbox = tk.Checkbutton(master=frm_server_ip, text="Server mode", var=server_mode)
     btn_server_connect = tk.Button(master=frm_server_ip, text="(Re)Connect!")
@@ -39,6 +62,7 @@ class JamTripApp:
     frm_server_ip.pack(fill=tk.X)
     lbl_server_ip.pack(side=tk.LEFT)
     ent_server_ip.pack(side=tk.LEFT)
+    btn_server_ip_save.pack(side=tk.LEFT)
     btn_server_connect.pack(side=tk.RIGHT)    
     btn_server_mode_checkbox.pack(side=tk.RIGHT)
     
@@ -48,11 +72,22 @@ class JamTripApp:
     frm_output.pack(expand=True, fill=tk.BOTH)
     txt_output.pack()
 
+    settings = Settings("settings.yaml")
+
     q = Q()
     
     @classmethod
     def setup(cls):
+        cls.ent_server_ip.insert(0, cls.settings.server_ip)
         cls.btn_server_connect.bind("<Button-1>", JamTripApp.connect)
+        cls.btn_server_ip_save.bind("<Button-1>", JamTripApp.save_ip)
+
+    @staticmethod
+    def save_ip(event):
+        cls = JamTripApp
+        cls.settings.server_ip = JamTripApp.ent_server_ip.get()
+        cls.settings.save()
+        
 
     @staticmethod
     def connect(event):

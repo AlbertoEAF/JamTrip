@@ -1,2 +1,5 @@
 *.pyc
 pycache/
+*.exe
+*~
+settings.yaml
